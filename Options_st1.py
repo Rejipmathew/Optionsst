@@ -41,20 +41,20 @@ with st.sidebar:
     default_option = all_contract_symbols_sorted[0]  # Highest volume contract
     selected_option = st.selectbox("Select option for price plot:", all_contract_symbols_sorted, index=all_contract_symbols_sorted.index(default_option))
 
-# --- Get current stock price ---
-try:
-    current_price = ticker.info['currentPrice']
-except Exception as e:
-    st.error(f"Error fetching stock price: {e}")
-    st.stop()
-
-st.write(f"Current Price of {ticker_symbol}: {current_price}")
-
 # --- Create pages ---
 page = st.sidebar.radio("Select Page", ["Option Chain", "Option Price", "Calls Table", "Puts Table"])
 
 # --- Page 1: Option Chain Visualization ---
 if page == "Option Chain":
+    # --- Get current stock price ---
+    try:
+        current_price = ticker.info['currentPrice']
+    except Exception as e:
+        st.error(f"Error fetching stock price: {e}")
+        st.stop()
+
+    st.write(f"Current Price of {ticker_symbol}: {current_price}")
+
     st.subheader("Option Chain Visualization")
 
     # Combine calls and puts for plotting
@@ -106,7 +106,7 @@ elif page == "Calls Table":
     st.subheader("Calls (Sorted by Volume)")
     st.write(option_chain.calls.sort_values(by='volume', ascending=False))
 
-# --- Page 4: Puts Table ---a
+# --- Page 4: Puts Table ---
 elif page == "Puts Table":
     st.subheader("Puts (Sorted by Volume)")
     st.write(option_chain.puts.sort_values(by='volume', ascending=False))
