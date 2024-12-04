@@ -7,7 +7,7 @@ st.title("Option Chain Explorer")
 
 # --- Sidebar for user input ---
 with st.sidebar:
-    ticker_symbol = st.text_input("Enter ticker symbol:", "AAPL")
+    ticker_symbol = st.text_input("Enter ticker symbol:", "TSLA")
 
     try:
         ticker = yf.Ticker(ticker_symbol)
